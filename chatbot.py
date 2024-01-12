@@ -15,6 +15,8 @@ from langchain.chains.llm import LLMChain
 from langchain.chains.combine_documents.stuff import StuffDocumentsChain
 from langchain.llms import AI21
 import pytube
+from langchain.chains import ConversationalRetrievalChain
+from langchain.memory import ConversationBufferMemory,ConversationSummaryBufferMemory
 
 def generate_welcoming_message():
     markdown = """
@@ -86,6 +88,27 @@ def get_conversation(vectorstore):
                                            verbose=True
                                            )
     return qa_chain
+def get_conversation_chain(vectorstore):
+  memory = ConversationSummaryBufferMemory(
+    llm=llm,
+    output_key='answer',
+    memory_key='chat_history',
+    return_messages=True)
+
+  retriever = vectorstore.as_retriever(
+    search_type="similarity_score_threshold",
+    search_kwargs={"score_threshold": 0.3,"k": 4, "include_metadata": True})
+
+  chain = ConversationalRetrievalChain.from_llm(
+    llm=llm,
+    memory=memory,
+    chain_type="stuff",
+    retriever=retriever,
+    return_source_documents=True,
+    get_chat_history=lambda h : h,
+    verbose=False)
+  return chain
+ 
 def get_video_chara(url):
    try:
     yt = YouTube(url)
@@ -96,15 +119,17 @@ def get_video_chara(url):
    except pytube.exceptions.RegexMatchError:
         return None, None, None
 
-def type_effect(response):
+def type_effect(response, source_highlighted):
     if response:
         words = response.split()
         displayed_text = st.empty()
+        highlighted_text = st.empty()
         for i in range(len(words)):
             displayed_text.write(" ".join(words[:i+1]))
             time.sleep(0.2)
-            if i==len(words)-1:
-             break
+            if i == len(words) - 1:
+                highlighted_text.markdown(source_highlighted, unsafe_allow_html=True)
+                break
 
 summaries_cache = {}
 def get_summary(video_key, documents):
@@ -124,7 +149,7 @@ def find_and_highlight_sentence(paragraph, target_sentence, transcribed_text):
             return paragraph.replace(target_sentence, highlighted_sentence)
         return paragraph
     
-os.environ['HUGGINGFACEHUB_API_TOKEN']='' #enter your API key here
+os.environ['HUGGINGFACEHUB_API_TOKEN']=''
 llm= HuggingFaceHub(repo_id='mistralai/Mixtral-8x7B-Instruct-v0.1', model_kwargs={'temperature': 0.1, 'max_length': 64},verbose=True)
 
 
@@ -137,6 +162,7 @@ if 'empty_space' not in st.session_state:
 if 'num' not in st.session_state:
     st.session_state.num=None
 
+
 st.sidebar.markdown(
     f"<h1 style='color: #EC5331; font-size: 36px; font-weight: bold;'>YouChat App</h1>", 
     unsafe_allow_html=True
@@ -148,9 +174,9 @@ if url!="":
 print(url)
 col1, col2 = st.sidebar.columns(2)
 with col1:
- ask_button = st.button("Analyze Video 🚀")
+  ask_button = st.button("Analyze Video 🚀")
 with col2:
- reset_button = st.button("Reset Form 🔄")
+  reset_button = st.button("Reset Form 🔄")
 if reset_button:
     directory = r'C:\Users\benal\Langchain\Youtube'
     for filename in os.listdir(directory):
@@ -165,13 +191,13 @@ if reset_button:
     st.session_state.conversation=None
     st.session_state.documents=None
 if 'documents' not in st.session_state:
- st.session_state.documents = None
+  st.session_state.documents = None
 if 'chunks' not in st.session_state:
- st.session_state.chunks = None
+  st.session_state.chunks = None
 if 'vectorstore' not in st.session_state:
- st.session_state.vectorstore = None
+  st.session_state.vectorstore = None
 if 'transcribed_text' not in st.session_state:
- st.session_state.transcribed_text = None
+  st.session_state.transcribed_text = None
 
 if url!="" :
     if ask_button:
@@ -184,7 +210,7 @@ if url!="" :
           st.session_state.documents,st.session_state.chunks=transcribed_text_to_chunks(r'c:\Users\benal\Langchain\Youtube')
           st.session_state.vectorstore=get_vectorstore(st.session_state.chunks)
           if st.session_state.vectorstore is not None:
-           st.session_state.conversation=get_conversation( st.session_state.vectorstore)
+           st.session_state.conversation=get_conversation_chain( st.session_state.vectorstore)
 
 if url!="" :
     with st.sidebar:
@@ -203,25 +229,24 @@ if 'messages' not in st.session_state:
 for message in st.session_state.messages:
     with st.chat_message(message['role']):
         st.markdown(message['content'],unsafe_allow_html=True)
-
 if st.session_state.conversation is not None :
- prompt = st.chat_input('Message to ChatBot...')
- if prompt:
+  prompt = st.chat_input('Message to ChatBot...')
+  if prompt:
     with st.chat_message('user'):
         st.markdown(prompt)
+
     st.session_state.messages.append({'role':'user','content': prompt})
     response= f'Echo {prompt}'
-    response += ":hushed:"
     response=st.session_state.conversation(prompt)
     with st.spinner("Thinking...Please  wait..."):
         time.sleep(1)
     with st.chat_message('assistant'):
-        answer=response.get('result')
+        answer=response.get("answer")
         doc=response['source_documents']
         if doc:
            print(doc)
            source = str(doc[0]).split("\\")[-1].replace(".txt'}", "")
-           answer_final = f"{answer} \n\n Source: {source} Video"
+           answer_final = f"{answer} \n\n Source: {video_title} Video"
            transcribed_text_highlited=st.session_state.transcribed_text
            for i in range(len(doc)):
             transcribed_text_highlited = find_and_highlight_sentence(transcribed_text_highlited, doc[i].page_content,st.session_state.transcribed_text)
@@ -229,7 +254,10 @@ if st.session_state.conversation is not None :
         else:
            source = 'your AI assistant'
            answer_final = f"{answer} \n\n Source: {source}"
-        st.markdown(answer_final)   
+        segments = answer_final.split("\n\n")
+        segments[-1] = f"<span style='color: #EC5331;'>{segments[-1]}</span>"
+        answer_final=f"{segments[0]} \n\n {segments[-1]}"
+        st.markdown(answer_final,unsafe_allow_html=True)
         st.session_state.messages.append({'role':'assistant','content':answer_final})
 
 
