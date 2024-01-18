@@ -14,15 +14,14 @@ To begin, copy the link of the YouTube video you wish to explore and paste it in
 
 <br/>  
 <img src="https://github.com/AzizBenAli/YouTubeChat-App/assets/116091818/d75ad6d8-d0b9-4768-8469-05eb18aaedf9" alt="Transcript" width="700">
-
-<br/>  
-
+<br/> 
+<br/> 
 After the video is displayed, you can start asking queries about the video. An important feature is the capability to retrieve the source of the chatbot's answer, highlighted in the video transcript. This enables users to gain more in-depth knowledge about the video content.
 <br/>  
-
+<br/> 
 <img src="https://github.com/AzizBenAli/YouTubeChat-App/assets/116091818/51a18e00-9c62-466c-96ed-3238d2a868c0" alt="Summary and Video" width="900">
 <br/>  
-
+<br/> 
 The chatbot is designed to maintain coherent conversations with users, ensuring a dynamic and engaging interaction.
 
 To reset the app for exploring another video, simply press "Reset All."
