@@ -12,7 +12,8 @@ Welcome to the YouTube Chatbot, a modern and intuitive application that enhances
 ## Usage and Features:
 To begin, copy the link of the YouTube video you wish to explore and paste it into the designated input bar within the app. Click the "Analyse Video" button to initiate the process. Once triggered, the app provides a brief summary, displays the video, and presents its transcript—all conveniently accessible within the application.
 
-![Image 1](https://github.com/AzizBenAli/YouTubeChat-App/assets/116091818/adbbfd36-8ae7-40ee-bbfe-8961ac19ff38 | width=450)
+
+<img src=https://github.com/AzizBenAli/YouTubeChat-App/assets/116091818/adbbfd36-8ae7-40ee-bbfe-8961ac19ff38 | width="450">
 ![Image 2](https://github.com/AzizBenAli/YouTubeChat-App/assets/116091818/ddbd6294-760d-4506-af95-917c2bc6bc6e | width=450)
 
 After the video is displayed, you can start asking queries about the video. An important feature is the capability to retrieve the source of the chatbot's answer, highlighted in the video transcript. This enables users to gain more in-depth knowledge about the video content.<img src="https://github.com/AzizBenAli/YouTubeChat-App/assets/116091818/51a18e00-9c62-466c-96ed-3238d2a868c0" alt="Summary and Video" width="900">
