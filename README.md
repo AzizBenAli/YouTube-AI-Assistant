@@ -33,8 +33,7 @@ To reset the app for exploring another video, simply press "Reset All."
 ## **Other Features**
 The app is continually under development, with new features in the pipeline. The focus is on enhancing the chatbot's ability to extract relevant information from videos, providing users with an even more comprehensive experience.
 
-## **Technologies Used
-**
+## **Technologies Used**
 
 - Mixtral 8×7B: Used for answering queries based on the video transcript.  
 - Hugging Face Transformers and Embeddings: Crucial components for various NLP tasks, contributing to the AI's intelligence and understanding.  
