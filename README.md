@@ -24,8 +24,8 @@ After the video is displayed, you can start asking queries about the video. An i
 <br/> 
 The chatbot is designed to maintain coherent conversations with users, ensuring a dynamic and engaging interaction.
 <br/> 
-<br/> 
-<img src="https://github.com/AzizBenAli/YouTubeChat-App/assets/116091818/1667e15e-9b36-44ca-9193-45dc098beb57" alt="conversation" width="900">
+<br/>
+<img src="https://github.com/AzizBenAli/YouTubeChat-App/assets/116091818/cf1f3474-f8dd-4b8f-a736-b608c1afcd8e" alt="conversation" width="900">
 <br/> 
 <br/> 
 To reset the app for exploring another video, simply press "Reset All."
