@@ -17,7 +17,8 @@ from langchain.llms import AI21
 import pytube
 from langchain.chains import ConversationalRetrievalChain
 from langchain.memory import ConversationBufferMemory,ConversationSummaryBufferMemory
-
+from langchain.retrievers import BM25Retriever, EnsembleRetriever
+from langchain.document_loaders import TextLoader, DirectoryLoader
 def generate_welcoming_message():
     markdown = """
     <style>
@@ -108,6 +109,32 @@ def get_conversation_chain(vectorstore):
     get_chat_history=lambda h : h,
     verbose=False)
   return chain
+
+
+def get_conversation_chain_advanced(vectorstore):
+  loader = DirectoryLoader(r"C:\Users\benal\Langchain\Youtube",
+                             glob='*.txt',
+                             loader_cls=TextLoader)
+
+  documents = loader.load()
+  memory = ConversationSummaryBufferMemory(
+    llm=llm,
+    output_key='answer',
+    memory_key='chat_history',
+    return_messages=True)
+  bm25_retriever = BM25Retriever.from_documents(documents)
+  bm25_retriever.k =3
+  chroma_retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
+  ensemble_retriever = EnsembleRetriever(retrievers=[bm25_retriever, chroma_retriever], weights=[0.5, 0.5])
+  chain = ConversationalRetrievalChain.from_llm(
+    llm=llm,
+    memory=memory,
+    chain_type="stuff",
+    retriever= ensemble_retriever,
+    return_source_documents=True,
+    get_chat_history=lambda h : h,
+    verbose=False)
+  return chain
  
 def get_video_chara(url):
    try:
@@ -145,13 +172,13 @@ def get_summary(video_key, documents):
 
 def find_and_highlight_sentence(paragraph, target_sentence, transcribed_text):
         if target_sentence in transcribed_text:
-            highlighted_sentence = f"<span style='background-color: {'#E1C6C0'}; color: black;'>{target_sentence}</span>"
+            highlighted_sentence = f"<span style=' color: red;'>{target_sentence}</span>"
             return paragraph.replace(target_sentence, highlighted_sentence)
         return paragraph
     
 os.environ['HUGGINGFACEHUB_API_TOKEN']=''
-llm= HuggingFaceHub(repo_id='mistralai/Mixtral-8x7B-Instruct-v0.1', model_kwargs={'temperature': 0.1, 'max_length': 64},verbose=True)
-
+llm1= HuggingFaceHub(repo_id='mistralai/Mixtral-8x7B-Instruct-v0.1', model_kwargs={'temperature': 0.1, 'max_length': 64},verbose=True)
+llm = AI21(ai21_api_key='',temperature=0.1,verbose=False)
 
 if 'conversation' not in st.session_state:
     st.session_state.conversation=None
@@ -171,7 +198,6 @@ st.sidebar.title('▶️ Provide a YouTube Video Link')
 url = st.sidebar.text_input("Paste the YouTube Video Link here", value="", help="E.g., https://www.youtube.com/watch?v=your_video_id")
 if url!="":
     st.session_state.num=True
-print(url)
 col1, col2 = st.sidebar.columns(2)
 with col1:
   ask_button = st.button("Analyze Video 🚀")
@@ -210,7 +236,7 @@ if url!="" :
           st.session_state.documents,st.session_state.chunks=transcribed_text_to_chunks(r'c:\Users\benal\Langchain\Youtube')
           st.session_state.vectorstore=get_vectorstore(st.session_state.chunks)
           if st.session_state.vectorstore is not None:
-           st.session_state.conversation=get_conversation_chain( st.session_state.vectorstore)
+           st.session_state.conversation=get_conversation_chain_advanced( st.session_state.vectorstore)
 
 if url!="" :
     with st.sidebar:
@@ -244,7 +270,6 @@ if st.session_state.conversation is not None :
         answer=response.get("answer")
         doc=response['source_documents']
         if doc:
-           print(doc)
            source = str(doc[0]).split("\\")[-1].replace(".txt'}", "")
            answer_final = f"{answer} \n\n Source: {video_title} Video"
            transcribed_text_highlited=st.session_state.transcribed_text
@@ -259,5 +284,6 @@ if st.session_state.conversation is not None :
         answer_final=f"{segments[0]} \n\n {segments[-1]}"
         st.markdown(answer_final,unsafe_allow_html=True)
         st.session_state.messages.append({'role':'assistant','content':answer_final})
+
 
 
