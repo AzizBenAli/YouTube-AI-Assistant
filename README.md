@@ -27,8 +27,6 @@ The chatbot is designed to maintain coherent conversations with users, ensuring 
 
 To reset the app for exploring another video, simply press "Reset All."
 
-
-
 ## Other Features:
 The app is continually under development, with new features in the pipeline. The focus is on enhancing the chatbot's ability to extract relevant information from videos, providing users with an even more comprehensive experience.
 
