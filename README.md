@@ -8,7 +8,7 @@ Welcome to the YouTube Chatbot, a modern and intuitive application that enhances
 - [Technologies Used](#technologies-used)
 - [Contributions](#contributions)
 - [Contact Information](#contact-information)
-
+ 
 ## **Usage and Features**
 To begin, copy the link of the YouTube video you wish to explore and paste it into the designated input bar within the app. Click the "Analyse Video" button to initiate the process. Once triggered, the app provides a brief summary, displays the video, and presents its transcript—all conveniently accessible within the application.
 
