@@ -62,7 +62,7 @@ run streamlit run chatbot.py
 Now open the 'External URL' in your browser. Enjoy the bot.
 <br>
 <br>
-<img width="404" alt="streamlit_app" src="C:\Users\benal\Desktop\streamlit_app.png">
+<img width="404" alt="streamlit_app" src="https://github.com/AzizBenAli/YouTubeChat-App/assets/116091818/c6c859b4-f4cd-4b34-8bc2-6ceb567de0de">
 <br>
 <br>
 " alt="conversation" width="600">
