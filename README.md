@@ -40,7 +40,7 @@ The YouTube API was employed to access and retrieve the transcript of the video.
 - Source Retrieval and Summarization: The system retrieves the most relevant information from the transcript relative to the query using advanced RAG technique: Parent Document Retriever.   
 - Citing Sources: A notable feature implemented is the citation of sources by the bot. This allows users to assess the veracity of the provided answer, enhancing transparency.      
 - Pipeline with Open-Source Models: The pipeline utilizes open-source embeddings from Hugging Face and the Mistral open-source model for processing the retrieval and generation steps.    
-### Memory
+### A Memory
 The conversation module of the chatbot seamlessly incorporates the buffer memory functionality inherent in the Langchain library. 
 # **Other Features**
 The app is continually under development, with new features in the pipeline. The focus is on enhancing the chatbot's ability to extract relevant information from videos, providing users with an even more comprehensive experience.
