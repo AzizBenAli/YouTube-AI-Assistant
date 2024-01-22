@@ -54,12 +54,12 @@ The app is continually under development, with new features in the pipeline. The
 - Langchain: Used for developing prompts and agents, enriching the AI Assistant's functionality and adaptability.
 
 # **Commands**
-Running the app locally from this repository
-clone this repository
-Create a new Python environment provided with pip
-run pip install -r requirements.txt
-run streamlit run chatbot.py
-Now open the 'External URL' in your browser. Enjoy the bot.
+- Running the app locally from this repository   
+- clone this repository    
+- Create a new Python environment provided with pip    
+- run pip install -r requirements.txt    
+- run streamlit run chatbot.py    
+- Now open the 'External URL' in your browser. Enjoy the bot.   
 <br>
 <br>
 <img width="600" alt="streamlit_app" src="https://github.com/AzizBenAli/YouTubeChat-App/assets/116091818/c6c859b4-f4cd-4b34-8bc2-6ceb567de0de">
