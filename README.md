@@ -51,8 +51,21 @@ The app is continually under development, with new features in the pipeline. The
 - Hugging Face Transformers and Embeddings: Crucial components for various NLP tasks, contributing to the AI's intelligence and understanding.  
 - Python: Employed for backend logic due to its versatility, extensive libraries, and robust functionality.  
 - Streamlit: Utilized to create the user-friendly interface, ensuring an interactive and seamless user experience.  
-- Langchain: Used for developing prompts and agents, enriching the AI Assistant's functionality and adaptability.     
+- Langchain: Used for developing prompts and agents, enriching the AI Assistant's functionality and adaptability.
 
+# **Commands**
+Running the app locally from this repository
+clone this repository
+Create a new Python environment provided with pip
+run pip install -r requirements.txt
+run streamlit run chatbot.py
+Now open the 'External URL' in your browser. Enjoy the bot.
+<br>
+<br>
+<img width="404" alt="streamlit_app" src="C:\Users\benal\Desktop\streamlit_app.png">
+<br>
+<br>
+" alt="conversation" width="600">
 # **Contributions**
 Contributions to enhance features or add new capabilities are welcome! Fork the repository, make your changes, and submit a pull request.
 
