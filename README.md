@@ -2,14 +2,14 @@
 
 Welcome to the YouTube Chatbot, a modern and intuitive application that enhances your video-watching experience! This chatbot allows you to extract valuable insights, engage in meaningful conversations, and explore video content in a whole new way. Below, we've provided a comprehensive guide to help you get started and make the most out of your YouTube experience.
 
-## **Table of Contents** 
+# **Table of Contents** 
 - [Usage and Features](#usage-and-features)
 - [Other Features](#other-features)
 - [Technologies Used](#technologies-used)
 - [Contributions](#contributions)
 - [Contact Information](#contact-information)
  
-## **Usage and Features**
+# **Usage and Features**
 To begin, copy the link of the YouTube video you wish to explore and paste it into the designated input bar within the app. Click the "Analyse Video" button to initiate the process. Once triggered, the app provides a brief summary, displays the video, and presents its transcript—all conveniently accessible within the application.
 
 <br/>  
@@ -30,7 +30,7 @@ The chatbot is designed to maintain coherent conversations with users, ensuring 
 <br/> 
 To reset the app for exploring another video, simply press "Reset All."
 
-## **Implementation Details**
+# **Implementation Details**
 
 ### A Transcript Extractror 
 The YouTube API was employed to access and retrieve the transcript of the video.
@@ -41,10 +41,10 @@ The YouTube API was employed to access and retrieve the transcript of the video.
 - Pipeline with Open-Source Models: The pipeline utilizes open-source embeddings from Hugging Face and the Mistral open-source model for processing the retrieval and generation steps.    
 ### Memory
 The conversation module of the chatbot seamlessly incorporates the buffer memory functionality inherent in the Langchain library. 
-## **Other Features**
+# **Other Features**
 The app is continually under development, with new features in the pipeline. The focus is on enhancing the chatbot's ability to extract relevant information from videos, providing users with an even more comprehensive experience.
 
-## **Technologies Used**
+# **Technologies Used**
 
 - Mixtral 8×7B: Used for answering queries based on the video transcript.  
 - Hugging Face Transformers and Embeddings: Crucial components for various NLP tasks, contributing to the AI's intelligence and understanding.  
@@ -52,8 +52,8 @@ The app is continually under development, with new features in the pipeline. The
 - Streamlit: Utilized to create the user-friendly interface, ensuring an interactive and seamless user experience.  
 - Langchain: Used for developing prompts and agents, enriching the AI Assistant's functionality and adaptability.     
 
-## **Contributions**
+# **Contributions**
 Contributions to enhance features or add new capabilities are welcome! Fork the repository, make your changes, and submit a pull request.
 
-## **Contact Information**
+# **Contact Information**
 For inquiries or feedback, reach out to [benaliazizaba000@gmail.com] 
