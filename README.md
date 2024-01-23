@@ -7,6 +7,7 @@ Welcome to the YouTube Chatbot, a modern and intuitive application that enhances
 - [Usage and Features](#usage-and-features)
 - [Other Features](#other-features)
 - [Technologies Used](#technologies-used)
+- [Commands](#commands)
 - [Contributions](#contributions)
 - [Contact Information](#contact-information)
  
